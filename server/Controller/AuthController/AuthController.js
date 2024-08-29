@@ -46,6 +46,53 @@ const signUp = async (req, res, next) => {
     next(error);
   }
 };
+
+// login
+const login = async (req, res, next) => {
+  try {
+    let { email, password } = req.body;
+
+    if (!email || !password) {
+      return next(errorHandle(400, "email and password are required"));
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return next(errorHandle(400, "email doesn't exist"));
+    }
+
+    const isMatch = bcryptjs.compareSync(password, user.password);
+
+    if (!isMatch) {
+      return next(errorHandle(400, "incorrect crediential"));
+    }
+
+    const payload = {
+      username: user.username,
+      id: user._id,
+    };
+
+    const token = createToken(payload, "1h");
+
+    const { password: pass, ...rest } = user._doc;
+
+    return res
+      .status(200)
+      .cookie("Access_Token", token, {
+        httpOnly: true,
+      })
+      .json({
+        status: true,
+        msg: "successfuly logged in",
+        rest,
+      });
+  } catch (error) {
+    return next(error);
+  }
+};
+
 module.exports = {
   signUp,
+  login,
 };
