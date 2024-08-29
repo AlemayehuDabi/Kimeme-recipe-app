@@ -43,7 +43,7 @@ const signUp = async (req, res, next) => {
         rest,
       });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 
@@ -109,7 +109,7 @@ const forgetPassword = async (req, res) => {
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
-      auth: {
+      User: {
         user: process.env.SENDER_EMAIL,
         pass: process.env.SENDER_PASSWORD,
       },
@@ -133,7 +133,55 @@ const forgetPassword = async (req, res) => {
       }
     });
   } catch (error) {
-    next(error);
+    return next(error);
+  }
+};
+
+// Reset Password
+const resetPassword = async (req, res) => {
+  try {
+    const { token } = req.params;
+    const { newPassword } = req.body;
+
+    if (!token) {
+      return next(errorHandle(401, "token is not sent"));
+    }
+
+    const decode = verifyToken({ token });
+
+    const id = decode.id;
+
+    if (!id) {
+      return next(errorHandle(401, "id from the token is not found"));
+    }
+
+    const user = await User.findById(id);
+
+    if (!user) {
+      return next(errorHandle(401, "user is not found"));
+    }
+
+    const hassedPassword = bcryptjs.hashSync(newPassword, 10);
+
+    const passwordChanged = await User.findOneAndUpdate(
+      {
+        id: user._id,
+      },
+      { password: hassedPassword }
+    );
+
+    const { password: pass, ...rest } = passwordChanged._doc;
+
+    return res
+      .status(200)
+      .cookie("Access_Token", token, { httpOnly: true })
+      .json({
+        status: true,
+        msg: "password is updated successfully",
+        rest,
+      });
+  } catch (error) {
+    return next(error);
   }
 };
 
@@ -141,4 +189,5 @@ module.exports = {
   signUp,
   login,
   forgetPassword,
+  resetPassword,
 };
