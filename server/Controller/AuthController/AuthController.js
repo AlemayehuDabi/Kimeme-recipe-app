@@ -92,7 +92,53 @@ const login = async (req, res, next) => {
   }
 };
 
+// Forget Password
+const forgetPassword = async (req, res) => {
+  const { email } = req.body;
+  try {
+    if (!email) {
+      return next(errorHandle(401, "Email is required"));
+    }
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return next(errorHandle(401, "Email is found"));
+    }
+
+    const token = createToken({ id: user._id }, "10min");
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.SENDER_EMAIL,
+        pass: process.env.SENDER_PASSWORD,
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.SENDER_EMAIL,
+      to: email,
+      subject: "Forget Password",
+      text: `http://localhost:5173/${token}`,
+    };
+
+    transporter.sendMail(mailOptions, function (error) {
+      if (error) {
+        return next(errorHandle(500, "Error while sending an email"));
+      } else {
+        return res.status(200).json({
+          status: false,
+          msg: "email sent successfully",
+        });
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   signUp,
   login,
+  forgetPassword,
 };
