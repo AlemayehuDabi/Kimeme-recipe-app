@@ -4,13 +4,13 @@ const Recipe = require("../../Model/RecipeModel/RecipeModel");
 const errorHandle = require("../../util/Error");
 
 // create recipe
-const createRecipe = async (req, res) => {
+const createRecipe = async (req, res, next) => {
   try {
     let { title, description, steps, img, ingredients } = req.body;
     const user = req.user.id;
 
     if (!mongoose.isValidObjectId(user)) {
-      return errorHandle(401, "invalid id");
+      return next(errorHandle(401, "invalid id"));
     }
 
     const recipe = await Recipe.create({
@@ -22,7 +22,7 @@ const createRecipe = async (req, res) => {
     });
 
     if (!recipe) {
-      return errorHandle(401, "recipe is not created");
+      return next(errorHandle(401, "recipe is not created"));
     }
 
     // creating ingredient
@@ -51,17 +51,17 @@ const createRecipe = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return errorHandle(error);
+    return next(errorHandle(error));
   }
 };
 
 // Get all Recipes
-const getRecipes = async (req, res) => {
+const getRecipes = async (req, res, next) => {
   try {
     const user = req.user.id;
 
     if (!mongoose.isValidObjectId(user)) {
-      return errorHandle(401, "invalid id");
+      return next(errorHandle(401, "invalid id"));
     }
 
     const allRecipe = await Recipe.findOne({
@@ -69,7 +69,7 @@ const getRecipes = async (req, res) => {
     }).populate("ingredients");
 
     if (!allRecipe) {
-      return errorHandle(401, "no recipe");
+      return next(errorHandle(401, "no recipe"));
     }
 
     return res.status(200).json({
@@ -79,17 +79,47 @@ const getRecipes = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({
-      status: false,
-      msg: "Internal Server Error",
+    return next(errorHandle(error));
+  }
+};
+
+// get specific recipe by id
+const getSpecificRecipe = async (req, res, next) => {
+  try {
+    const recipeId = req.params.id;
+    const user = req.user.id;
+
+    if (
+      !mongoose.isValidObjectId(user) ||
+      !mongoose.isValidObjectId(recipeId)
+    ) {
+      return next(errorHandle(401, "invalid id"));
+    }
+
+    const getSpecificRecipe = await Recipe.findOne({
+      _id: recipeId,
+      author: user,
+    }).populate("ingredients");
+
+    if (!getSpecificRecipe) {
+      return next(errorHandle(401, "no recipe with this id"));
+    }
+
+    return res.status(200).json({
+      status: true,
+      msg: "specific recipe",
+      getSpecificRecipe,
     });
+  } catch (error) {
+    console.log(error);
+    return next(errorHandle(error));
   }
 };
 
 module.exports = {
   createRecipe,
   getRecipes,
-  //   getSpecificRecipe,
+  getSpecificRecipe,
   //   deleteRecipe,
   //   updateRecipe,
 };
