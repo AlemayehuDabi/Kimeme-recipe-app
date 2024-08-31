@@ -1,5 +1,6 @@
 const User = require("../../Model/UserModel/UserModel");
 const mongoose = require("mongoose");
+const errorHandle = require("../../util/Error");
 
 // get user
 const getUser = async (req, res) => {
@@ -28,6 +29,34 @@ const getUser = async (req, res) => {
   }
 };
 
+// delete user
+const deleteUser = async (req, res, next) => {
+  const user = req.user.id;
+  try {
+    if (!mongoose.isValidObjectId(user)) {
+      return next(errorHandle(400, "Invalid Id"));
+    }
+
+    const isUser = await User.findOne({ _id: user });
+
+    if (!isUser) {
+      return next(errorHandle(404, "user is not found!"));
+    }
+
+    const userDeleted = await isUser.deleteOne();
+
+    return res.status(200).json({
+      status: true,
+      msg: "user deleted",
+      userDeleted,
+    });
+  } catch (error) {
+    console.log(error);
+    return next(error);
+  }
+};
+
 module.exports = {
   getUser,
+  deleteUser,
 };
