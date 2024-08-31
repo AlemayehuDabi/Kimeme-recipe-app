@@ -10,10 +10,12 @@ app.use(express.json());
 
 const authRouter = require("./Routes/AuthRoutes/AuthRoutes");
 const recipeRouter = require("./Routes/RecipeRoutes/RecipeRoutes");
+const userRouter = require("./Routes/UserRoutes/UserRoutes");
 
 // api
 app.use("/api/auth", authRouter);
 app.use("/api/recipe", recipeRouter);
+app.use("/api/user", userRouter);
 
 // db connection
 mongoose
