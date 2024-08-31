@@ -4,7 +4,7 @@ const {
   getUser,
   deleteUser,
   changePassword,
-  //   updateProfile,
+  updateProfile,
 } = require("../../Controller/UserController/UserController");
 const authMiddleWare = require("../../Middleware/AuthProtector/auth");
 
@@ -12,6 +12,6 @@ const authMiddleWare = require("../../Middleware/AuthProtector/auth");
 router.route("/get").get(authMiddleWare, getUser);
 router.route("/delete").delete(authMiddleWare, deleteUser);
 router.route("/change-password").patch(authMiddleWare, changePassword);
-// router.route("/update-profile").put(authMiddleWare, updateProfile);
+router.route("/update-profile").put(authMiddleWare, updateProfile);
 
 module.exports = router;

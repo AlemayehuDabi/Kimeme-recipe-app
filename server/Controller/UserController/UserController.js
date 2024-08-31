@@ -113,8 +113,48 @@ const changePassword = async (req, res, next) => {
   }
 };
 
+// update profile
+const updateProfile = async (req, res, next) => {
+  const user = req.user.id;
+  const { username, email } = req.body;
+  try {
+    if (!mongoose.isValidObjectId(user)) {
+      return next(errorHandle(401, "Invalid Id"));
+    }
+
+    if (!username || !email) {
+      return next(errorHandle(401, "updates info are required"));
+    }
+
+    const update = await User.findByIdAndUpdate(
+      user,
+      {
+        username,
+        email,
+      },
+      { new: true }
+    );
+
+    if (!update) {
+      return next(errorHandle(401, "user is not updated"));
+    }
+
+    const { password: pass, ...rest } = update._doc;
+
+    return res.status(200).json({
+      status: true,
+      msg: "profile updated successfully",
+      rest,
+    });
+  } catch (error) {
+    console.log(error);
+    return next(error);
+  }
+};
+
 module.exports = {
   getUser,
   deleteUser,
   changePassword,
+  updateProfile,
 };
