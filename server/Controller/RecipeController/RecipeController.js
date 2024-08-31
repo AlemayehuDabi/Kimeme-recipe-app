@@ -50,8 +50,7 @@ const createRecipe = async (req, res, next) => {
       sendRecipe,
     });
   } catch (error) {
-    console.log(error);
-    return next(errorHandle(error));
+    return next(error);
   }
 };
 
@@ -78,8 +77,7 @@ const getRecipes = async (req, res, next) => {
       allRecipe,
     });
   } catch (error) {
-    console.log(error);
-    return next(errorHandle(error));
+    return next(error);
   }
 };
 
@@ -94,6 +92,10 @@ const getSpecificRecipe = async (req, res, next) => {
       !mongoose.isValidObjectId(recipeId)
     ) {
       return next(errorHandle(401, "invalid id"));
+    }
+
+    if (!recipeId) {
+      return next(errorHandle(401, "recipe-id is required"));
     }
 
     const getSpecificRecipe = await Recipe.findOne({
@@ -111,8 +113,46 @@ const getSpecificRecipe = async (req, res, next) => {
       getSpecificRecipe,
     });
   } catch (error) {
+    return next(error);
+  }
+};
+
+// delete specific recipe
+const deleteRecipe = async (req, res, next) => {
+  const user = req.user.id;
+  const recipeId = req.params.id;
+
+  try {
+    if (
+      !mongoose.isValidObjectId(user) ||
+      !mongoose.isValidObjectId(recipeId)
+    ) {
+      return next(errorHandle(401, "invalid id"));
+    }
+
+    if (!recipeId) {
+      return next(errorHandle(400, "recipe-id is required"));
+    }
+
+    const recipe = await Recipe.findOne({
+      _id: recipeId,
+      author: user,
+    });
+
+    if (!recipe) {
+      return next(errorHandle(400, "recipe is not found"));
+    }
+
+    const deletedRecipe = await Recipe.deleteOne(recipe);
+
+    return res.status(200).json({
+      status: true,
+      msg: "recipe deleted successfully",
+      deletedRecipe,
+    });
+  } catch (error) {
     console.log(error);
-    return next(errorHandle(error));
+    next(error);
   }
 };
 
@@ -120,6 +160,6 @@ module.exports = {
   createRecipe,
   getRecipes,
   getSpecificRecipe,
-  //   deleteRecipe,
+  deleteRecipe,
   //   updateRecipe,
 };

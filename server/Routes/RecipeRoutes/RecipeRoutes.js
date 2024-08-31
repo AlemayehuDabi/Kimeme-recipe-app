@@ -8,12 +8,12 @@ const {
   createRecipe,
   getRecipes,
   getSpecificRecipe,
-  //   deleteRecipe,
+  deleteRecipe,
 } = require("../../Controller/RecipeController/RecipeController");
 
 router.route("/create").post(authMiddleWare, createRecipe);
 router.route("/all").get(authMiddleWare, getRecipes);
 router.route("/specific/:id").get(authMiddleWare, getSpecificRecipe);
-// router.route("/delete/:id").delete(authMiddleWare, deleteRecipe);
+router.route("/delete/:id").delete(authMiddleWare, deleteRecipe);
 
 module.exports = router;
