@@ -9,9 +9,11 @@ const errorMiddle = require("./Middleware/ErrorMiddleware/errorMiddleWare");
 app.use(express.json());
 
 const authRouter = require("./Routes/AuthRoutes/AuthRoutes");
+const recipeRouter = require("./Routes/RecipeRoutes/RecipeRoutes");
 
 // api
 app.use("/api/auth", authRouter);
+app.use("/api/recipe", recipeRouter);
 
 // db connection
 mongoose

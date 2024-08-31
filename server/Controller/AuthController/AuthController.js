@@ -86,6 +86,7 @@ const login = async (req, res, next) => {
         status: true,
         msg: "successfuly logged in",
         rest,
+        token,
       });
   } catch (error) {
     return next(error);
