@@ -55,9 +55,40 @@ const createRecipe = async (req, res) => {
   }
 };
 
+// Get all Recipes
+const getRecipes = async (req, res) => {
+  try {
+    const user = req.user.id;
+
+    if (!mongoose.isValidObjectId(user)) {
+      return errorHandle(401, "invalid id");
+    }
+
+    const allRecipe = await Recipe.findOne({
+      author: user,
+    }).populate("ingredients");
+
+    if (!allRecipe) {
+      return errorHandle(401, "no recipe");
+    }
+
+    return res.status(200).json({
+      status: true,
+      msg: "all recipe",
+      allRecipe,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      status: false,
+      msg: "Internal Server Error",
+    });
+  }
+};
+
 module.exports = {
   createRecipe,
-  //   getRecipes,
+  getRecipes,
   //   getSpecificRecipe,
   //   deleteRecipe,
   //   updateRecipe,
