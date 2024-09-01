@@ -38,7 +38,7 @@ const createRecipe = async (req, res, next) => {
 
     recipe.ingredients = createIngredient.map((ing) => ing._id);
 
-    recipe.save();
+    await recipe.save();
 
     const sendRecipe = await Recipe.findById(recipe._id).populate(
       "ingredients"
@@ -63,7 +63,7 @@ const getRecipes = async (req, res, next) => {
       return next(errorHandle(401, "invalid id"));
     }
 
-    const allRecipe = await Recipe.findOne({
+    const allRecipe = await Recipe.find({
       author: user,
     }).populate("ingredients");
 

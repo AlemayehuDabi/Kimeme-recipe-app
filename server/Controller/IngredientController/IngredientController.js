@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const Ingredient = require("../../Model/IngredientModel/IngredientModel");
+const Ingredient = require("../../Model/IngredientModel/ingredientModel");
+const errorHandle = require("../../util/Error");
 
 // add ingredient
 const addIngredient = async (req, res, next) => {
@@ -45,6 +46,44 @@ const addIngredient = async (req, res, next) => {
   }
 };
 
+// get ingredient
+const getIngredient = async (req, res, next) => {
+  const recipeId = req.params.id;
+  const user = req.user.id;
+
+  try {
+    if (
+      !mongoose.isValidObjectId(recipeId) ||
+      !mongoose.isValidObjectId(user)
+    ) {
+      return next(errorHandle(401, "invalid id"));
+    }
+
+    if (!recipeId) {
+      return next(errorHandle(401, "ingredient id is required"));
+    }
+
+    const ingredient = await Ingredient.find({
+      recipeId: recipeId,
+      author: user,
+    });
+
+    if (!ingredient) {
+      return next(errorHandle(401, "ingredient is not found"));
+    }
+
+    return res.status(200).json({
+      status: true,
+      msg: "specific ingredient",
+      ingredient,
+    });
+  } catch (error) {
+    console.log(error);
+    return next(error);
+  }
+};
+
 module.exports = {
   addIngredient,
+  getIngredient,
 };

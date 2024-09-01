@@ -1,7 +1,8 @@
 const User = require("../../Model/UserModel/UserModel");
 const bcryptjs = require("bcryptjs");
-const { createToken } = require("../../util/token");
+const { createToken, verifyToken } = require("../../util/token");
 const errorHandle = require("../../util/Error");
+const nodemailer = require("nodemailer");
 
 // sign up
 const signUp = async (req, res, next) => {
@@ -94,7 +95,7 @@ const login = async (req, res, next) => {
 };
 
 // Forget Password
-const forgetPassword = async (req, res) => {
+const forgetPassword = async (req, res, next) => {
   const { email } = req.body;
   try {
     if (!email) {
@@ -110,7 +111,7 @@ const forgetPassword = async (req, res) => {
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
-      User: {
+      auth: {
         user: process.env.SENDER_EMAIL,
         pass: process.env.SENDER_PASSWORD,
       },
@@ -139,7 +140,7 @@ const forgetPassword = async (req, res) => {
 };
 
 // Reset Password
-const resetPassword = async (req, res) => {
+const resetPassword = async (req, res, next) => {
   try {
     const { token } = req.params;
     const { newPassword } = req.body;
