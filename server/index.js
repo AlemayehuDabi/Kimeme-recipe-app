@@ -11,11 +11,13 @@ app.use(express.json());
 const authRouter = require("./Routes/AuthRoutes/AuthRoutes");
 const recipeRouter = require("./Routes/RecipeRoutes/RecipeRoutes");
 const userRouter = require("./Routes/UserRoutes/UserRoutes");
+const ingredientRouter = require("./Routes/IngredientRoutes/IngredientRoutes");
 
 // api
 app.use("/api/auth", authRouter);
 app.use("/api/recipe", recipeRouter);
 app.use("/api/user", userRouter);
+app.use("/api/ingredient", ingredientRouter);
 
 // db connection
 mongoose
