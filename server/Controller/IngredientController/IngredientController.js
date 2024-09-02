@@ -41,7 +41,6 @@ const addIngredient = async (req, res, next) => {
       ingAdd,
     });
   } catch (error) {
-    console.log(error);
     return next(error);
   }
 };
@@ -78,6 +77,52 @@ const getIngredient = async (req, res, next) => {
       ingredient,
     });
   } catch (error) {
+    return next(error);
+  }
+};
+
+// delete ingredient
+const deleteIngredient = async (req, res) => {
+  const ingredientId = req.params.ingredientId;
+  const recipeId = req.params.recipeId;
+  const user = req.user.id;
+
+  try {
+    if (
+      !mongoose.isValidObjectId(ingredientId) ||
+      !mongoose.isValidObjectId(user) ||
+      !mongoose.isValidObjectId(recipeId)
+    ) {
+      return next(errorHandle(401, "invalid id"));
+    }
+
+    if (!ingredientId || recipeId) {
+      return next(
+        errorHandle(401, "id of the recipe and ingredient is required")
+      );
+    }
+
+    const ingredient = await Ingredient.findOne({
+      _id: ingredientId,
+      recipeId: recipeId,
+      author: user,
+    });
+
+    if (!ingredient) {
+      return next(errorHandle(401, "ingredient does not exist"));
+    }
+
+    const deletedIngredient = await Ingredient.deleteOne({
+      _id: ingredientId,
+      author: user,
+    });
+
+    return res.json({
+      status: true,
+      msg: "ingredient successfuly deleted",
+      deletedIngredient,
+    });
+  } catch (error) {
     console.log(error);
     return next(error);
   }
@@ -86,4 +131,5 @@ const getIngredient = async (req, res, next) => {
 module.exports = {
   addIngredient,
   getIngredient,
+  deleteIngredient,
 };
