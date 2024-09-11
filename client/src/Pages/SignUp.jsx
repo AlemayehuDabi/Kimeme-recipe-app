@@ -2,12 +2,13 @@ import { Button, Label, TextInput } from "flowbite-react";
 import NavBar from "../component/NavBar/NavBar";
 import { Link } from "react-router-dom";
 import navlogo from "../assest/img/navlogo.png";
+import FooterComp from "../component/Footer/Footer";
 
 const SignUp = () => {
   return (
     <>
       <NavBar />
-      <div className="md:mt-20 flex justify-center items-center ">
+      <div className="md:mt-20 flex justify-center items-center md:mb-32">
         <div className="flex flex-col space-y-8  md:flex-row md:max-w-3xl md:mx-auto md:space-x-8">
           {/* left side */}
           <div className="flex flex-col  max-w-sm md:max-w-lg">
@@ -62,6 +63,7 @@ const SignUp = () => {
           </div>
         </div>
       </div>
+      <FooterComp />
     </>
   );
 };
