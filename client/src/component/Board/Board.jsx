@@ -17,7 +17,7 @@ const Board = () => {
       ></div>
 
       <div className="flex flex-col justify-center items-center gap-10">
-        <p className="text-white text-5xl z-10 font-semibold tracking-wider">
+        <p className="text-white pl-3 text-5xl z-10 font-semibold tracking-wider">
           Explore Ethiopian food
         </p>
         <Button outline color="failure">

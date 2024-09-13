@@ -5,7 +5,7 @@ const Recipe = () => {
   return (
     <div className="flex flex-col" id="recipe">
       <div className="text-center">
-        <p className="text-3xl font-semibold text-gray-500 tracking-widest">
+        <p className="text-3xl font-bold text-gray-400 hover:text-gray-500 tracking-wider hover:cursor-pointer transition duration-700">
           Recipe
         </p>
       </div>

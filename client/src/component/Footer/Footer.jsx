@@ -1,13 +1,15 @@
 import { Footer } from "flowbite-react";
 import Navbar from "../../assest/img/navlogo.png";
 
-const FooterComp = () => {
+const FooterComp = ({ isFour }) => {
   return (
     <Footer
       container
-      className="mt-20 w-full bg-red-50 rounded-t-2xl border-t-2 border-red-600"
+      className={`mt-20 w-full bg-red-50 rounded-t-2xl border-t-2 border-red-600 bottom-0 ${
+        isFour && "fixed"
+      }`}
     >
-      <div className="flex flex-col w-full ">
+      <div className="flex flex-col w-full">
         <div className="w-full flex items-center justify-evenly">
           <Footer.Brand href="/">
             <div className="flex space-x-2 items-center">
@@ -26,7 +28,7 @@ const FooterComp = () => {
             </div>
           </Footer.Brand>
 
-          <Footer.LinkGroup className="text-gray-600 tracking-wide flex justify-around font-medium">
+          <Footer.LinkGroup className="text-gray-600 tracking-wide flex flex-col justify-around font-medium md:flex-row">
             <Footer.Link href="#">Recipe</Footer.Link>
             <Footer.Link href="#">Privacy Policy</Footer.Link>
             <Footer.Link href="#">Licensing</Footer.Link>

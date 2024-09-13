@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 import navlogo from "../assest/img/navlogo.png";
 import FooterComp from "../component/Footer/Footer";
 
-const SignUp = () => {
+const SignUp = ({ isFixed }) => {
   return (
     <>
-      <NavBar />
-      <div className="md:mt-20 flex justify-center items-center md:mb-32">
-        <div className="flex flex-col space-y-8  md:flex-row md:max-w-3xl md:mx-auto md:space-x-8">
+      <NavBar isFixed={isFixed} />
+      <div className="md:mt-20 flex justify-center items-center md:mb-52">
+        <div className="flex flex-col space-y-8 md:flex-row md:max-w-3xl md:mx-auto md:space-x-8">
           {/* left side */}
           <div className="flex flex-col space-y-3 max-w-sm md:max-w-lg">
             <div className="flex space-x-2 justify-center items-center">
