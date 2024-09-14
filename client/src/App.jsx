@@ -6,6 +6,7 @@ import CreateRecipe from "./Pages/CreateRecipe/CreateRecipe";
 import { useEffect, useState } from "react";
 import FourOFour from "./component/FourOFour/fourOfour";
 import Profile from "./Pages/profile/Profile";
+import Search from "./Pages/Search/Search";
 
 function App() {
   const [isFixed, setIsFixed] = useState("");
@@ -34,7 +35,8 @@ function App() {
           path="/create-recipe"
         />
 
-        <Route element={<Profile />} path="/profile" />
+        <Route element={<Profile isFixed={isFixed} />} path="/profile" />
+        <Route element={<Search isFixed={isFixed} />} path="/search" />
 
         {/* four0four page */}
         <Route element={<FourOFour />} path="*" />
