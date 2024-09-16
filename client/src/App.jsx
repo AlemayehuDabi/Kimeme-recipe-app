@@ -7,6 +7,9 @@ import { useEffect, useState } from "react";
 import FourOFour from "./component/FourOFour/fourOfour";
 import Profile from "./Pages/profile/Profile";
 import Search from "./Pages/Search/Search";
+import Notification from "./Pages/Notification/Notification";
+import Setting from "./Pages/Setting/Setting";
+import DashBoard from "./Pages/DashBoard/DashBoard";
 
 function App() {
   const [isFixed, setIsFixed] = useState("");
@@ -37,6 +40,9 @@ function App() {
 
         <Route element={<Profile isFixed={isFixed} />} path="/profile" />
         <Route element={<Search isFixed={isFixed} />} path="/search" />
+        <Route element={<Notification />} path="/notification" />
+        <Route element={<Setting />} path="/setting" />
+        <Route element={<DashBoard isFixed={isFixed} />} path="/dashboard" />
 
         {/* four0four page */}
         <Route element={<FourOFour />} path="*" />

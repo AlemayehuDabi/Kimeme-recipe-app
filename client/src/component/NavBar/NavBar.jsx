@@ -6,7 +6,7 @@ const NavBar = ({ isSticky, isFixed }) => {
     <Navbar
       className={`mx-auto z-10 py-2 px-4  flex justify-between items-center transition-transform duration-1000 ease-in-out ${
         isSticky || isFixed
-          ? "fixed top-0 w-full bg-white shadow-md scroll-py-4"
+          ? "fixed top-0 w-full bg-white shadow-md scroll-py-4 transition duration-700"
           : "relative"
       }`}
     >
