@@ -3,7 +3,7 @@ import Navbar from "../../assest/img/navlogo.png";
 
 const TopHeader = () => {
   return (
-    <header className="flex items-center justify-between gap-5 md:gap-0 md:justify-around mb-5 bg-gray-50 py-5">
+    <header className="flex items-center justify-between gap-5 md:gap-0 md:justify-around mb-5 bg-gray-50 py-5 dark:bg-gray-700">
       {/* logo */}
       <Link to="/">
         <div className="flex space-x-2 items-center">

@@ -9,19 +9,19 @@ const Catagories = () => {
       <div className="flex flex-col items-center md:flex-row flex-wrap justify-around px-5 gap-6">
         <div className="relative">
           <img src={vegitable} alt="veg" />
-          <div className="absolute top-0  text-lg font-bold text-red-600 tracking-wider bg-gray-50">
+          <div className="absolute top-0  text-lg font-bold text-red-600 tracking-wider bg-gray-50 rounded-full px-1">
             Vegitable
           </div>
         </div>
         <div className="relative">
           <img src={vegitable} alt="veg" />
-          <div className="absolute top-0 text-lg font-bold text-red-600 tracking-wider bg-gray-50">
+          <div className="absolute top-0 text-lg font-bold text-red-600 tracking-wider bg-gray-50 rounded-full px-1">
             Breakfast
           </div>
         </div>
         <div className="relative">
           <img src={vegitable} alt="veg" />
-          <div className="absolute top-0 text-lg font-bold text-red-600 tracking-wider bg-gray-50">
+          <div className="absolute top-0 text-lg font-bold text-red-600 tracking-wider bg-gray-50 rounded-full px-1">
             Lunch
           </div>
         </div>

@@ -48,8 +48,9 @@ const SignUp = ({ isFixed }) => {
               </Button>
               <div className="flex  space-x-2 text-md font-semibold tracking-wider">
                 <Link to="/login">
-                  Forget Password?
-                  <span className="text-green-600 ml-2">Forget</span>
+                  <span className="text-green-500 text-md">
+                    Forget Password?
+                  </span>
                 </Link>
               </div>
             </form>

@@ -1,7 +1,13 @@
 import { Button, Navbar, TextInput } from "flowbite-react";
 import { Link } from "react-router-dom";
+import { IoSunnyOutline } from "react-icons/io5";
+import { FaMoon } from "react-icons/fa";
+import { toggleTheme } from "../../Redux/theme/themeSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const NavBar = ({ isSticky, isFixed }) => {
+  const { theme } = useSelector((state) => state.theme);
+  const dispatch = useDispatch();
   return (
     <Navbar
       className={`mx-auto z-10 py-2 px-4  flex justify-between items-center transition-transform duration-1000 ease-in-out ${
@@ -36,27 +42,34 @@ const NavBar = ({ isSticky, isFixed }) => {
           </div>
         </div>
       </div>
+      <button onClick={() => dispatch(toggleTheme())}>
+        {theme === "light" ? (
+          <FaMoon size={18} />
+        ) : (
+          <IoSunnyOutline size={25} />
+        )}
+      </button>
       <Navbar.Toggle />
 
       <Navbar.Collapse>
         <Navbar.Link
           as={Link}
           to="/"
-          className="hover:text-red-600 tracking-wider hover:border-b-2 hover:border-red-400 hover:pb-1 transition duration-500 hover:shadow-sm"
+          className="hover:text-red-600 tracking-wider hover:border-b-2 hover:border-red-600 hover:pb-1 transition duration-500 hover:shadow-sm dark:border-red-600"
         >
           Home
         </Navbar.Link>
         <Navbar.Link
           as={Link}
           to="/recipe"
-          className="hover:text-red-600 tracking-wider hover:border-b-2 hover:border-red-400  hover:pb-1 transition duration-500 hover:shadow-sm"
+          className="hover:text-red-600 tracking-wider hover:border-b-2 hover:border-red-600  hover:pb-1 transition duration-500 hover:shadow-sm dark:border-red-600"
         >
           Recipes
         </Navbar.Link>
         <Navbar.Link
           as={Link}
           to="/catagories"
-          className="hover:text-red-600 tracking-wider hover:border-b-2 hover:border-red-400 hover:pb-1 transition duration-500 hover:shadow-sm"
+          className="hover:text-red-600 tracking-wider hover:border-b-2 hover:border-red-600 hover:pb-1 transition duration-500 hover:shadow-sm dark:border-red-600"
         >
           Catagories
         </Navbar.Link>

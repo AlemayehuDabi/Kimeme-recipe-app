@@ -8,21 +8,21 @@ const DashBoard = ({ isFixed }) => {
     <>
       <NavBar isFixed={isFixed} />
       <div
-        className={`grid grid-cols-3 grid-flow-col gap-40 xl:gap-14  ${
+        className={`flex mdd:mx-10 xll:mx-10 xxl:justify-between ${
           isFixed ? "mt-16" : "mt-10"
         }`}
       >
-        <aside className="col-span-1">
+        <div className="hidden mdd:flex-1 xll:flex-[1.7] mdd:flex justify-center">
           <LeftNav />
-        </aside>
+        </div>
 
-        <section className="col-span-1">
+        <div className="flex justify-center mx-5 sm:mx-auto mb-5 max-w-xl mdd:max-w-3xl flex-[1.5] mdd:mx-0 xll:flex-[2] ">
           <Post />
-        </section>
+        </div>
 
-        <aside className="col-span-1">
+        <div className="hidden xll:flex-[2] xll:flex justify-center">
           <RightNav />
-        </aside>
+        </div>
       </div>
     </>
   );

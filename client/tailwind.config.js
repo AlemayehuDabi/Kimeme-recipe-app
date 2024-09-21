@@ -10,6 +10,18 @@ export default {
         Poppins: ["'Poppins'", "sans-serif"],
         Lora: ["'Lora'", "serif"],
       },
+      width: {
+        xll: "1345px",
+        mdd: "960px",
+      },
+      height: {
+        xll: "1345px",
+        mdd: "960px",
+      },
+      screens: {
+        xll: "1345px",
+        mdd: "960px",
+      },
     },
   },
   plugins: [flowbite.plugin()],

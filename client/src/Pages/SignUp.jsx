@@ -1,10 +1,58 @@
-import { Button, Label, TextInput } from "flowbite-react";
+import { Button, Label, TextInput, Toast } from "flowbite-react";
 import NavBar from "../component/NavBar/NavBar";
 import { Link } from "react-router-dom";
 import navlogo from "../assest/img/navlogo.png";
 import FooterComp from "../component/Footer/Footer";
+import { useState } from "react";
+import axios from "axios";
+import { HiCheck, HiExclamation, HiX } from "react-icons/hi";
 
 const SignUp = ({ isFixed }) => {
+  const [data, setData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const Register = async (e) => {
+    e.preventDefault();
+
+    const { username, email, password } = data;
+    if (!email || !username || !password) {
+      return setError("required");
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/auth/sign-up",
+        {
+          username,
+          email,
+          password,
+        }
+      );
+      if (response.data) {
+        setSuccess(response.data.msg);
+      }
+    } catch (error) {
+      if (error.response.data && error.response.data.msg) {
+        setError(response.data.msg);
+      } else {
+        setError("sth went wrong!");
+      }
+    }
+  };
+
+  const handleChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
     <>
       <NavBar isFixed={isFixed} />
@@ -26,31 +74,54 @@ const SignUp = ({ isFixed }) => {
           </div>
           {/* right side */}
           <div className=" flex flex-col justify-center items-center">
-            <form className="w-full md:w-80 space-y-7">
+            <form className="w-full md:w-80 space-y-7" onSubmit={Register}>
               <div className="space-y-2">
                 <div>
                   <Label
                     value="Username"
                     className=" text-md font-semibold tracking-widest "
                   />
-                  <TextInput placeholder="username" type="text" />
+                  <TextInput
+                    placeholder="username"
+                    type="text"
+                    value={data.username}
+                    name="username"
+                    onChange={handleChange}
+                  />
                 </div>
                 <div>
                   <Label
                     value="Email"
                     className=" text-md font-semibold tracking-widest "
                   />
-                  <TextInput placeholder="email" type="text" />
+                  <TextInput
+                    placeholder="email"
+                    type="text"
+                    value={data.email}
+                    name="email"
+                    onChange={handleChange}
+                  />
                 </div>
                 <div>
                   <Label
                     value="Password"
                     className=" text-md font-semibold tracking-widest "
                   />
-                  <TextInput placeholder="*********" type="password" />
+                  <TextInput
+                    placeholder="*********"
+                    type="password"
+                    value={data.password}
+                    name="password"
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
-              <Button className="w-full" outline gradientDuoTone="pinkToOrange">
+              <Button
+                type="submit"
+                className="w-full"
+                outline
+                gradientDuoTone="pinkToOrange"
+              >
                 Sign Up
               </Button>
               <div className="flex  space-x-2 text-md font-semibold tracking-wider">
@@ -60,6 +131,25 @@ const SignUp = ({ isFixed }) => {
                 </Link>
               </div>
             </form>
+            {success && (
+              <Toast>
+                <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-100 text-green-500 dark:bg-green-800 dark:text-green-200">
+                  <HiCheck className="h-5 w-5" />
+                </div>
+                <div className="ml-3 text-sm font-normal">{success}</div>
+                <Toast.Toggle />
+              </Toast>
+            )}
+
+            {error && (
+              <Toast color="failure">
+                <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-100 text-red-500 dark:bg-red-800 dark:text-green-200">
+                  <HiX className="h-5 w-5" />
+                </div>
+                <div className="ml-3 text-sm font-normal">{error}</div>
+                <Toast.Toggle />
+              </Toast>
+            )}
           </div>
         </div>
       </div>

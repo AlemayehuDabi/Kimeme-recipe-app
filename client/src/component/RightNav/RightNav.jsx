@@ -3,7 +3,7 @@ import Logo from "../../assest/img/eggferfer.png";
 
 const RightNav = () => {
   return (
-    <div className="border-2  p-2 space-y-4 fixed right-5 left-auto px-5 py-5 shadow-md rounded-lg">
+    <div className="border-2 p-2 space-y-4 fixed right-5 left-auto px-5 py-5 shadow-md rounded-lg">
       {/* about */}
 
       <div className="flex justify-between items-stretch space-x-2 mb-12">

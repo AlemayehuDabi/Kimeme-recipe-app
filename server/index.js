@@ -3,7 +3,11 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const port = process.env.PORT || 8000;
+const cors = require("cors");
 const errorMiddle = require("./Middleware/ErrorMiddleware/errorMiddleWare");
+
+// cors policy
+app.use(cors("http://localhost:5173"));
 
 // express json
 app.use(express.json());

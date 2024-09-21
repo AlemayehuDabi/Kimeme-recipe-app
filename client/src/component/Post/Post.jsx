@@ -33,7 +33,7 @@ const Post = () => {
 
         {/* middle: paragraph */}
         <div>
-          <div className="px-5 pt-5 pb-2 text-sm font-Lora">
+          <div className="px-5 pt-5 pb-2 sm:text-sm font-Lora">
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse,
               maxime, ratione possimus accusamus quas nemo fugiat eligendi quia
@@ -94,7 +94,7 @@ const Post = () => {
 
         {/* middle: paragraph */}
         <div>
-          <div className="px-5 pt-5 pb-2">
+          <div className="px-5 pt-5 pb-2 sm:text-sm font-Lora">
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse,
               maxime, ratione possimus accusamus quas nemo fugiat eligendi quia
@@ -117,19 +117,22 @@ const Post = () => {
         <div className="flex justify-between items-center mx-10 my-4">
           {/* like */}
           <div>
-            <SlLike size={30} />
+            <SlLike size={25} />
           </div>
 
           {/* comment */}
           <div>
-            <FaRegComment size={30} />
+            <FaRegComment size={25} />
           </div>
 
           {/* rating */}
           <div>
-            <MdStarRate size={30} />
+            <MdStarRate size={25} />
           </div>
         </div>
+      </div>
+      <div className="hidden 2xl:flex">
+        <p>isdkhdsj;ldsa;pjda</p>
       </div>
     </section>
   );
