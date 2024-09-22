@@ -6,8 +6,8 @@ import { MdStarRate } from "react-icons/md";
 
 const Post = () => {
   return (
-    <section className="space-y-10">
-      <div className="border-2 rounded-lg shadow-md">
+    <section className="space-y-10 mb-14 mdd:mb-0">
+      <div className="dark:shadow-red-400 rounded-lg shadow-md">
         {/* top */}
         <div className="flex justify-between items-center px-5 py-2">
           {/* left side */}
@@ -72,7 +72,7 @@ const Post = () => {
       </div>
 
       {/* hello */}
-      <div className="border-2 rounded-lg shadow-md">
+      <div className="dark:shadow-red-400 rounded-lg shadow-md">
         {/* top */}
         <div className="flex justify-between items-center px-5 py-2">
           {/* left side */}

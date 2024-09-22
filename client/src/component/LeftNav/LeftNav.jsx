@@ -17,7 +17,7 @@ const LeftNav = () => {
     "space-y-2  py-1 px-4 bg-red-50 text-gray-600 hover:bg-red-100 rounded-md cursor-pointer";
 
   return (
-    <section className="rounded-md px-4 pb-2 fixed shadow-md hover:shadow-lg left-5 right-auto">
+    <section className="rounded-md px-4 pb-2 fixed top-20 shadow-md hover:shadow-lg left-5 right-auto dark:shadow-red-400">
       <div className="py-2">
         {/* top */}
         <div className="flex justify-between items-center px-2">

@@ -1,5 +1,6 @@
 import LeftNav from "../../component/LeftNav/LeftNav";
 import NavBar from "../../component/NavBar/NavBar";
+import NavFooterSmall from "../../component/NavFooterSmall/NavFooterSmall";
 import Post from "../../component/Post/Post";
 import RightNav from "../../component/RightNav/RightNav";
 
@@ -7,11 +8,7 @@ const DashBoard = ({ isFixed }) => {
   return (
     <>
       <NavBar isFixed={isFixed} />
-      <div
-        className={`flex mdd:mx-10 xll:mx-10 xxl:justify-between ${
-          isFixed ? "mt-16" : "mt-10"
-        }`}
-      >
+      <div className={`flex mdd:mx-10 xll:mx-10 xxl:justify-between`}>
         <div className="hidden mdd:flex-1 xll:flex-[1.7] mdd:flex justify-center">
           <LeftNav />
         </div>
@@ -23,6 +20,10 @@ const DashBoard = ({ isFixed }) => {
         <div className="hidden xll:flex-[2] xll:flex justify-center">
           <RightNav />
         </div>
+      </div>
+
+      <div className="flex justify-center fixed bottom-0 w-full mdd:hidden">
+        <NavFooterSmall />
       </div>
     </>
   );

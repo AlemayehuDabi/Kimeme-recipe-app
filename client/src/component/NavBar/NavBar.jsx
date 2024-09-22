@@ -13,10 +13,10 @@ const NavBar = ({ isSticky, isFixed }) => {
       className={`mx-auto z-10 py-2 px-4  flex justify-between items-center transition-transform duration-1000 ease-in-out ${
         isSticky || isFixed
           ? "fixed top-0 w-full bg-white shadow-md scroll-py-4 transition duration-700"
-          : "relative"
+          : "relative mb-5"
       }`}
     >
-      <div className="flex md:order-2">
+      <div className="flex items-center gap-5 md:order-2">
         <div className="flex space-x-10">
           <form>
             <TextInput
