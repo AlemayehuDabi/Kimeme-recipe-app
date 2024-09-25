@@ -4,9 +4,11 @@ import { IoSunnyOutline } from "react-icons/io5";
 import { FaMoon } from "react-icons/fa";
 import { toggleTheme } from "../../Redux/theme/themeSlice";
 import { useSelector, useDispatch } from "react-redux";
+import Img from "../../assest/img/gursha.jpg";
 
 const NavBar = ({ isSticky, isFixed }) => {
   const { theme } = useSelector((state) => state.theme);
+  const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   return (
     <Navbar
@@ -16,7 +18,7 @@ const NavBar = ({ isSticky, isFixed }) => {
           : "relative mb-5"
       }`}
     >
-      <div className="flex items-center gap-5 md:order-2">
+      <div className="flex items-center order-2 md:order-2">
         <div className="flex space-x-10">
           <form>
             <TextInput
@@ -24,25 +26,31 @@ const NavBar = ({ isSticky, isFixed }) => {
               className="hidden md:inline-block"
             />
           </form>
-          <div className="flex space-x-5">
-            <div>
-              <Link to="/sign-up">
-                <Button outline pill gradientDuoTone="pinkToOrange">
-                  Sign Up
-                </Button>
-              </Link>
+          {currentUser ? (
+            <div className="rounded-full w-12 h-12">
+              <img src={Img} className="w-full h-full rounded-full" />
             </div>
-            <div>
-              <Link to="/login">
-                <Button pill gradientDuoTone="pinkToOrange">
-                  <span className="px-1">Login</span>
-                </Button>
-              </Link>
+          ) : (
+            <div className="flex space-x-5">
+              <div>
+                <Link to="/sign-up">
+                  <Button outline pill gradientDuoTone="pinkToOrange">
+                    Sign Up
+                  </Button>
+                </Link>
+              </div>
+              <div>
+                <Link to="/login">
+                  <Button pill gradientDuoTone="pinkToOrange">
+                    <span className="px-1">Login</span>
+                  </Button>
+                </Link>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
-      <button onClick={() => dispatch(toggleTheme())}>
+      <button onClick={() => dispatch(toggleTheme())} className="order-1">
         {theme === "light" ? (
           <FaMoon size={18} />
         ) : (

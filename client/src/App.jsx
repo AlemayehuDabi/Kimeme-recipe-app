@@ -10,6 +10,7 @@ import Search from "./Pages/Search/Search";
 import Notification from "./Pages/Notification/Notification";
 import Setting from "./Pages/Setting/Setting";
 import DashBoard from "./Pages/DashBoard/DashBoard";
+import PrivateRoute from "./component/Privateroute/Privateroute";
 
 function App() {
   const [isFixed, setIsFixed] = useState("");
@@ -42,7 +43,10 @@ function App() {
         <Route element={<Search isFixed={isFixed} />} path="/search" />
         <Route element={<Notification />} path="/notification" />
         <Route element={<Setting />} path="/setting" />
-        <Route element={<DashBoard isFixed={isFixed} />} path="/dashboard" />
+
+        <Route element={<PrivateRoute />}>
+          <Route element={<DashBoard isFixed={isFixed} />} path="/dashboard" />
+        </Route>
 
         {/* four0four page */}
         <Route element={<FourOFour />} path="*" />
