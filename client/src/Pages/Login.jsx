@@ -5,7 +5,7 @@ import navlogo from "../assest/img/navlogo.png";
 import FooterComp from "../component/Footer/Footer";
 import { useState } from "react";
 import axios from "axios";
-import { userFailure, userSuccess } from "../Redux/user/userSlice";
+import { userFailure, userStart, userSuccess } from "../Redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { HiCheck, HiX } from "react-icons/hi";
 
