@@ -6,6 +6,7 @@ import { IoHomeOutline } from "react-icons/io5";
 import { LuSearch } from "react-icons/lu";
 import { CgProfile } from "react-icons/cg";
 import { IoMdNotificationsOutline } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const LeftNav = () => {
   const Pagination =
@@ -55,47 +56,47 @@ const LeftNav = () => {
         {/* after logo */}
         <div className="flex flex-col px-10  pt-4 gap-3">
           {/* home page */}
-          <a href="/dashboard">
+          <Link to="/dashboard">
             <div className={`${Pagination}`}>
               <IoHomeOutline size={22} />
               <p className={`${PaginationPara}`}>Home</p>
             </div>
-          </a>
+          </Link>
           {/* search */}
-          <a href="/search">
+          <Link to="/search">
             <div className={`${Pagination}`}>
               <LuSearch size={22} />
               <p className={`${PaginationPara}`}>Search</p>
             </div>
-          </a>
+          </Link>
           {/* profile */}
-          <a href="/profile">
+          <Link to="/profile">
             <div className={`${Pagination}`}>
               <CgProfile size={22} />
               <p className={`${PaginationPara}`}>Profile</p>
             </div>
-          </a>
+          </Link>
           {/* notification */}
-          <a href="/notification">
+          <Link to="/notification">
             <div className={`${Pagination}`}>
               <IoMdNotificationsOutline size={24} />
               <p className={`${PaginationPara}`}>Notification</p>
             </div>
-          </a>
+          </Link>
           {/* create-recipe */}
-          <a href="/create">
+          <Link to="/create-recipe">
             <div className={`${Pagination}`}>
               <IoMdAdd size={24} />
               <p className={`${PaginationPara}`}>Create</p>
             </div>
-          </a>
-          {/* logout */}
-          <a href="/logout">
+          </Link>
+          {/* logout- not this way */}
+          <Link to="/logout">
             <div className={`${Pagination}`}>
               <MdOutlineLogout size={22} />
               <p className={`${PaginationPara}`}>Logout</p>
             </div>
-          </a>
+          </Link>
         </div>
       </div>
     </section>

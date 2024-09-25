@@ -5,27 +5,34 @@ import navlogo from "../assest/img/navlogo.png";
 import FooterComp from "../component/Footer/Footer";
 import { useState } from "react";
 import axios from "axios";
-import { HiCheck, HiExclamation, HiX } from "react-icons/hi";
+import { HiCheck, HiX } from "react-icons/hi";
+import { useDispatch, useSelector } from "react-redux";
+import { userStart, userFailure, userSuccess } from "../Redux/user/userSlice";
 
 const SignUp = ({ isFixed }) => {
+  const { currentUser, error, isLoading } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  if (error) {
+    dispatch(userFailure(null));
+  }
+
   const [data, setData] = useState({
     username: "",
     email: "",
     password: "",
   });
 
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-
   const Register = async (e) => {
     e.preventDefault();
-
-    const { username, email, password } = data;
-    if (!email || !username || !password) {
-      return setError("required");
-    }
+    dispatch(userStart());
 
     try {
+      const { username, email, password } = data;
+      if (!email || !username || !password) {
+        return dispatch(userFailure("fill all the fields"));
+      }
+
       const response = await axios.post(
         "http://localhost:8000/api/auth/sign-up",
         {
@@ -34,14 +41,14 @@ const SignUp = ({ isFixed }) => {
           password,
         }
       );
-      if (response.data) {
-        setSuccess(response.data.msg);
+      if (response.data && response.data.msg) {
+        return dispatch(userSuccess(response.data.msg));
       }
     } catch (error) {
       if (error.response.data && error.response.data.msg) {
-        setError(response.data.msg);
+        return dispatch(userFailure(error.response.data.msg));
       } else {
-        setError("sth went wrong!");
+        return dispatch(userFailure("sth went wrong"));
       }
     }
   };
@@ -131,12 +138,12 @@ const SignUp = ({ isFixed }) => {
                 </Link>
               </div>
             </form>
-            {success && (
+            {currentUser && (
               <Toast>
                 <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-100 text-green-500 dark:bg-green-800 dark:text-green-200">
                   <HiCheck className="h-5 w-5" />
                 </div>
-                <div className="ml-3 text-sm font-normal">{success}</div>
+                <div className="ml-3 text-sm font-normal">{currentUser}</div>
                 <Toast.Toggle />
               </Toast>
             )}
