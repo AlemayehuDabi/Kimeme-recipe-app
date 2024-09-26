@@ -50,7 +50,10 @@ const NavBar = ({ isSticky, isFixed }) => {
           )}
         </div>
       </div>
-      <button onClick={() => dispatch(toggleTheme())} className="order-1">
+      <button
+        onClick={() => dispatch(toggleTheme())}
+        className="order-1 md:order-none"
+      >
         {theme === "light" ? (
           <FaMoon size={18} />
         ) : (

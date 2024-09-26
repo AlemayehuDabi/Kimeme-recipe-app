@@ -3,8 +3,11 @@ import photo from "../../assest/img/eggferfer.png";
 import { SlLike } from "react-icons/sl";
 import { FaRegComment } from "react-icons/fa";
 import { MdStarRate } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 const Post = () => {
+  const { currentUser } = useSelector((state) => state.user);
+
   return (
     <section className="space-y-10 mb-14 mdd:mb-0">
       <div className="dark:shadow-red-400 rounded-lg shadow-md">
@@ -16,7 +19,8 @@ const Post = () => {
             <div>
               {/* name */}
               <p className="text-lg font-bold font-Poppins text-gray-600">
-                Alex
+                {currentUser.rest.username.charAt(0).toUpperCase() +
+                  currentUser.rest.username.slice(1)}
               </p>
               {/* locations */}
               <p className="text-sm text-gray-500 font-semibold">USA</p>
@@ -80,7 +84,10 @@ const Post = () => {
             <img src={photo} width={50} />
             <div>
               {/* name */}
-              <p className="text-lg font-bold">Alex</p>
+              <p className="text-lg font-bold">
+                {currentUser.rest.username.charAt(0).toUpperCase() +
+                  currentUser.rest.username.slice(1)}
+              </p>
               {/* locations */}
               <p className="text-sm text-gray-500 font-semibold">USA</p>
             </div>

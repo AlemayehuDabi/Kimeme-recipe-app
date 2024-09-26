@@ -7,8 +7,11 @@ import { LuSearch } from "react-icons/lu";
 import { CgProfile } from "react-icons/cg";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const LeftNav = () => {
+  const { currentUser } = useSelector((state) => state.user);
+
   const Pagination =
     "flex space-x-3 items-center cursor-pointer bg-red-50 hover:bg-red-100 p-2 rounded-md";
   const PaginationPara =
@@ -24,9 +27,12 @@ const LeftNav = () => {
         <div className="flex justify-between items-center px-2">
           {/* account */}
           <div className="flex space-x-2 items-center cursor-pointer">
-            <img src={Logo} width={50} />
+            <img src={currentUser ? currentUser.rest.img : Logo} width={50} />
             <div>
-              <p className="text-lg font-bold text-gray-700">Alex</p>
+              <p className="text-lg font-bold text-gray-700">
+                {currentUser.rest.username.charAt(0).toUpperCase() +
+                  currentUser.rest.username.slice(1)}
+              </p>
               <p className="text-sm font-semibold text-gray-400">usa</p>
             </div>
           </div>
@@ -41,7 +47,7 @@ const LeftNav = () => {
         <div className="grid grid-cols-3 space-x-2">
           <div className={`${followAndPost}`}>
             <p className="text-center">Followers</p>
-            <p className="text-center">0</p>
+            <p className="text-center">{currentUser.rest.follower}</p>
           </div>
           <div className={`${followAndPost}`}>
             <p className="text-center">Post</p>
@@ -49,7 +55,7 @@ const LeftNav = () => {
           </div>
           <div className={`${followAndPost}`}>
             <p className="text-center">Following</p>
-            <p className="text-center">0</p>
+            <p className="text-center">{currentUser.rest.following}</p>
           </div>
         </div>
 

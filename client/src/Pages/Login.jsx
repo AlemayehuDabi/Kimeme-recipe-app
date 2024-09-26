@@ -40,7 +40,7 @@ const SignUp = ({ isFixed }) => {
       );
 
       if (response.data && response.data.msg) {
-        return dispatch(userSuccess(response.data.msg));
+        return dispatch(userSuccess(response.data));
       }
     } catch (error) {
       if (error.response.data && error.response.data.msg) {
@@ -49,6 +49,7 @@ const SignUp = ({ isFixed }) => {
         return dispatch(userFailure("sth went wrong"));
       }
     }
+    console.log(currentUser);
   };
 
   const handleChange = (e) => {
@@ -129,7 +130,9 @@ const SignUp = ({ isFixed }) => {
                 <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-100 text-green-500 dark:bg-green-800 dark:text-green-200">
                   <HiCheck className="h-5 w-5" />
                 </div>
-                <div className="ml-3 text-sm font-normal">{currentUser}</div>
+                <div className="ml-3 text-sm font-normal">
+                  {currentUser.msg}
+                </div>
                 <Toast.Toggle />
               </Toast>
             )}

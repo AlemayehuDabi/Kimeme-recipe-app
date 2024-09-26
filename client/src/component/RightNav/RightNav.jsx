@@ -1,7 +1,10 @@
 import React from "react";
 import Logo from "../../assest/img/eggferfer.png";
+import { useSelector } from "react-redux";
 
 const RightNav = () => {
+  const { currentUser } = useSelector((state) => state.user);
+
   return (
     <div className="dark:shadow-red-400 p-2 space-y-4 fixed top-20 right-5 left-auto px-5 py-5 shadow-md rounded-lg">
       {/* about */}
@@ -11,7 +14,10 @@ const RightNav = () => {
           <img src={Logo} width={50} />
         </div>
         <div>
-          <p>Alex</p>
+          <p className="font-semibold">
+            {currentUser.rest.username.charAt(0).toUpperCase() +
+              currentUser.rest.username.slice(1)}
+          </p>
           <p className="text-sm">
             computer science | software developer | web developer
           </p>
