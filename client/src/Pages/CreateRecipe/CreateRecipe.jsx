@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import DropzoneUploader from "react-dropzone-uploader";
+import Dropzone from "react-dropzone-uploader";
 import { Button } from "flowbite-react";
 import FooterComp from "../../component/Footer/Footer";
 import NavBar from "../../component/NavBar/NavBar";
+import "react-dropzone-uploader/dist/styles.css";
 
 const CreateRecipe = ({ isFixed }) => {
   const [value, setValue] = useState("");
@@ -12,8 +13,8 @@ const CreateRecipe = ({ isFixed }) => {
   return (
     <>
       <NavBar isFixed={isFixed} />
-      <div className="flex justify-center align-center p-4 mb-10 mt-10">
-        <div className="border-2 border-white-200 shadow-xl p-6 w-3/5 rounded-lg space-y-4">
+      <div className="flex justify-center align-center px-2 sm:p-4 mb-10 mt-10">
+        <div className="border-2 border-gray-200 dark:border-gray-600 shadow-xl p-6 w-full md:w-3/4  lg:w-3/5 rounded-xl md:rounded-lg space-y-4">
           <div className="text-center">
             <h1 className="text-3xl font-semibold text-gray-500 tracking-wide">
               Create <span className="text-red-500">Recipe</span>
@@ -23,7 +24,10 @@ const CreateRecipe = ({ isFixed }) => {
             <h3 className="text-lg font-semibold text-gray-400 tracking-wide">
               Recipe title
             </h3>
-            <input className="border-2 w-full h-8" />
+            <input
+              className="border-2 py-3 px-1 border-gray-400 w-full h-8"
+              placeholder="Recipe title"
+            />
           </div>
           <div>
             <h3 className="text-lg font-semibold text-gray-400 tracking-wide">
@@ -38,7 +42,7 @@ const CreateRecipe = ({ isFixed }) => {
                   Ingrdient
                 </h1>
                 <input
-                  className="block border-2  w-2/6 h-8"
+                  className="block border-2 py-3 px-1 w-2/6 h-8 border-gray-400"
                   placeholder="Ingrdient title"
                 />
               </div>
@@ -53,7 +57,7 @@ const CreateRecipe = ({ isFixed }) => {
                         Nut type
                       </h1>
                       <input
-                        className="border-2 h-8"
+                        className="border-2 h-8 py-3 px-1 border-gray-400"
                         placeholder="Nutrient type"
                       />
                     </div>
@@ -61,40 +65,60 @@ const CreateRecipe = ({ isFixed }) => {
                       <h1 className="text-md font-semibold text-gray-400 tracking-wide">
                         cal
                       </h1>
-                      <input className="border-2 h-8" placeholder="cal" />
+                      <input
+                        className="border-2 h-8 py-3 px-1 border-gray-400"
+                        placeholder="cal"
+                      />
                     </div>
                   </div>
-                  <button></button>
-                  <Button className="bg-red-500 px-2">Add nut</Button>
+                  <button
+                    className="font-semibold bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg text-white active:bg-red-700"
+                    outline
+                  >
+                    Add nut
+                  </button>
                 </form>
               </div>
             </div>
-            <div className="mx-60">
-              <Button className="bg-blue-500">Add Ingrdient</Button>
+            <div className="flex justify-center items-center">
+              <button
+                className="font-semibold bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg text-white active:bg-green-800"
+                outline
+              >
+                Add Ingrident
+              </button>
             </div>
           </div>
           <div>
             <h3 className="text-lg font-semibold text-gray-400 tracking-wide">
               Steps
             </h3>
-            <input className="border-2  w-full h-8" />
+            <input
+              className="border-2 border-gray-400 py-3 px-1 w-full h-8"
+              placeholder="Steps"
+            />
           </div>
           <div>
             <h3 className="text-lg font-semibold text-gray-400 tracking-wide">
               Image
             </h3>
             <div className="border-2 border-gray-400 p-2">
-              <DropzoneUploader
-                classNames={`text-md text-gray-400 font-bold`}
-                accept="image/*,video/*"
-              />
+              <Dropzone accept="image/*,video/*" />
             </div>
           </div>
           <div className="flex space-x-3">
-            <Button className="bg-green-500 hover:bg-green-600" outline>
+            <button
+              className="font-semibold bg-white border-2 border-green-600 text-black active:bg-green-700 hover:bg-green-600 px-4 py-2 rounded-lg hover:text-white"
+              outline
+            >
               Submit
-            </Button>
-            <Button color="failure">Cancel</Button>
+            </button>
+            <button
+              className="font-semibold bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-white active:bg-red-800"
+              outline
+            >
+              Cancel
+            </button>
           </div>
         </div>
       </div>

@@ -28,12 +28,10 @@ const RightNav = () => {
       <div className="space-y-5">
         <div className="space-y-3">
           <div className="flex justify-between items-center">
-            <p className="text-lg font-gupter font-bold tracking-wide text-gray-600">
+            <p className="text-lg font-gupter font-bold tracking-wide text-gray-600 dark:text-gray-400">
               Suggested for you
             </p>
-            <p className="text-sm font-semibold tracking-wider text-gray-900">
-              See All
-            </p>
+            <p className="text-md font-semibold tracking-wider">See All</p>
           </div>
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-3">
@@ -46,7 +44,7 @@ const RightNav = () => {
         {/* following */}
         <div className="space-y-2">
           <div>
-            <p className="text-lg font-bold text-gray-500 font-gupter">
+            <p className="text-lg font-bold text-gray-500 dark:text-gray-400 font-gupter">
               following
             </p>
           </div>

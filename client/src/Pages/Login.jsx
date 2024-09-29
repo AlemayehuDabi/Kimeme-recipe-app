@@ -1,6 +1,6 @@
 import { Button, Label, TextInput, Toast } from "flowbite-react";
 import NavBar from "../component/NavBar/NavBar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import navlogo from "../assest/img/navlogo.png";
 import FooterComp from "../component/Footer/Footer";
 import { useState } from "react";
@@ -11,6 +11,7 @@ import { HiCheck, HiX } from "react-icons/hi";
 
 const SignUp = ({ isFixed }) => {
   const { currentUser, error, isLoading } = useSelector((state) => state.user);
+  const navigate = useNavigate();
 
   const [data, setData] = useState({
     email: "",
@@ -40,7 +41,8 @@ const SignUp = ({ isFixed }) => {
       );
 
       if (response.data && response.data.msg) {
-        return dispatch(userSuccess(response.data));
+        dispatch(userSuccess(response.data));
+        return navigate("/dashboard");
       }
     } catch (error) {
       if (error.response.data && error.response.data.msg) {
@@ -49,7 +51,6 @@ const SignUp = ({ isFixed }) => {
         return dispatch(userFailure("sth went wrong"));
       }
     }
-    console.log(currentUser);
   };
 
   const handleChange = (e) => {

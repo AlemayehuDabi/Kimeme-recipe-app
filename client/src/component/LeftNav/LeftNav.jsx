@@ -8,9 +8,19 @@ import { CgProfile } from "react-icons/cg";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { persistor } from "../../Redux/store";
+import { useNavigate } from "react-router-dom";
 
 const LeftNav = () => {
   const { currentUser } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    persistor.purge();
+    localStorage.clear();
+    sessionStorage.clear();
+    persistor.flush().then(() => navigate("/login"));
+  };
 
   const Pagination =
     "flex space-x-3 items-center cursor-pointer bg-red-50 hover:bg-red-100 p-2 rounded-md";
@@ -21,7 +31,7 @@ const LeftNav = () => {
     "space-y-2  py-1 px-4 bg-red-50 text-gray-600 hover:bg-red-100 rounded-md cursor-pointer";
 
   return (
-    <section className="rounded-md px-4 pb-2 fixed top-20 shadow-md hover:shadow-lg left-5 right-auto dark:shadow-red-400">
+    <section className="rounded-sm px-4 pb-2 fixed top-20 shadow-md  left-5 right-auto dark:shadow-red-400">
       <div className="py-2">
         {/* top */}
         <div className="flex justify-between items-center px-2">
@@ -97,12 +107,12 @@ const LeftNav = () => {
             </div>
           </Link>
           {/* logout- not this way */}
-          <Link to="/logout">
+          <button onClick={handleLogout}>
             <div className={`${Pagination}`}>
               <MdOutlineLogout size={22} />
               <p className={`${PaginationPara}`}>Logout</p>
             </div>
-          </Link>
+          </button>
         </div>
       </div>
     </section>
